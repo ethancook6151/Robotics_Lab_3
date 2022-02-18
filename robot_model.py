@@ -43,38 +43,41 @@ def get_rot(transformed_matrix):
   yaw = math.atan(transformed_matrix[2][1]/transformed_matrix[2][2])
   return roll, pitch, yaw
 
+
+def print_helper(pos, rot):
+  print('\nx= ', round(pos[0],2), '\ny=', round(pos[1],2), '\nz=', round(pos[2],2))
+  print('\nroll=',  round(rot[0],2), '\npitch=',  round(rot[1],2), '\nyaw=',  round(rot[2],2)) 
+  print('__________________________________________________')
+
+
 if __name__ == '__main__':
   np.set_printoptions(precision=2, suppress=True)
   # Matrix for one joint should be set up let [a, d, apha, theta]
-  
   problem_2a = kinematic_chain(np.array([[1.0, 0.0, 0.0, math.pi/2],
                                         [1.0, 0.0, 0.0, math.pi/2]]))
   print('\nProblem 2a: \n',problem_2a)                                        
-  x,y,z = get_pos(problem_2a)
-  print('x=',x, '\ny=',y, '\nz=',z)
-  roll, pitch, yaw = get_rot(problem_2a)
-  print('roll=', roll, '\npitch=', pitch, '\nyaw=', yaw)
+  pos = get_pos(problem_2a)
+  rot = get_rot(problem_2a)
+  print_helper(pos, rot)
 
-  problem_2b = kinematic_chain(np.array([[0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0]]))
-  print('\nProblem 2b: \n',problem_2b)                                        
-  x,y,z = get_pos(problem_2b)
-  print('x=',x, '\ny=',y, '\nz=',z)
-  roll, pitch, yaw = get_rot(problem_2b)
-  print('roll=', roll, '\npitch=', pitch, '\nyaw=', yaw)
+  problem_2_case_1 = kinematic_chain(np.array([[0.0, 0.1625,  math.pi/2, 0.0],
+                                                [-0.425, 0.0, 0.0, 0.0],
+                                                [-0.1333, 0.0, 0.0, 0.0],
+                                                [0.0, 0.1333, math.pi/2, 0.0],
+                                                [0.0, 0.0997, -math.pi/2, 0.0],
+                                                [0.0, 0.0996, 0.0, 0.0]]))
+  print('\nProblem 2 Case 1: \n',problem_2_case_1)                                                                           
+  pos = get_pos(problem_2_case_1)
+  rot = get_rot(problem_2_case_1)
+  print_helper(pos, rot)
 
-  problem_2c = kinematic_chain(np.array([[0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, -math.pi/2],
-                                        [0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0],
-                                        [0.0, 0.0, 0.0, 0]]))
-  print('\nProblem 2c: \n',problem_2c)                                        
-  x,y,z = get_pos(problem_2c)
-  print('x=',x, '\ny=',y, '\nz=',z)
-  roll, pitch, yaw = get_rot(problem_2c)
-  print('roll=', roll, '\npitch=', pitch, '\nyaw=', yaw)
+  problem_2_case_2 = kinematic_chain(np.array([[0.0, 0.1625,  math.pi/2, 0.0],
+                                                [-0.425, 0.0, 0.0, -math.pi/2],
+                                                [-0.1333, 0.0, 0.0, 0.0],
+                                                [0.0, 0.1333, math.pi/2, 0.0],
+                                                [0.0, 0.0997, -math.pi/2, 0.0],
+                                                [0.0, 0.0996, 0.0, 0.0]]))
+  print('\nProblem 2 Case 2: \n',problem_2_case_2)                                        
+  pos = get_pos(problem_2_case_2)
+  rot = get_rot(problem_2_case_2)
+  print_helper(pos, rot)
