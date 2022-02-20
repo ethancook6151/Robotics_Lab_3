@@ -2,14 +2,14 @@ import math
 import numpy as np
 
 
-def dh_transformation(a, d, apha, theta, array):
+def dh_transformation(a, d, alpha, theta, array):
   ''' This function takes the Denavi-Hartenbery parameters and applies them to the 
       homogenous transformtion matrix '''
   # Set up matrixs with parameters
   trans = np.array([
-          [math.cos(theta), -math.sin(theta)*math.cos(apha), math.sin(theta)*math.sin(apha), a*math.cos(theta)],
-          [math.sin(theta), math.cos(theta)*math.cos(apha), -math.cos(theta)*math.sin(apha), a*math.sin(theta)],
-          [0.0, math.sin(apha), math.cos(apha), d],
+          [math.cos(theta), -math.sin(theta)*math.cos(alpha), math.sin(theta)*math.sin(alpha), a*math.cos(theta)],
+          [math.sin(theta), math.cos(theta)*math.cos(alpha), -math.cos(theta)*math.sin(alpha), a*math.sin(theta)],
+          [0.0, math.sin(alpha), math.cos(alpha), d],
           [0.0, 0.0, 0.0, 1.0]
                     ])
 
@@ -38,9 +38,9 @@ def get_pos(transformed_matrix):
 def get_rot(transformed_matrix):
   ''' This function takes the homogeneous transformation matrix
       and return the roll, pitch, and yaw '''
-  roll = math.atan(transformed_matrix[1][0]/transformed_matrix[0][0])
-  pitch = math.atan(-transformed_matrix[2][0]/(math.sqrt(transformed_matrix[2][1]**2 + transformed_matrix[2][2]**2)))
-  yaw = math.atan(transformed_matrix[2][1]/transformed_matrix[2][2])
+  roll = math.atan2(transformed_matrix[1][0], transformed_matrix[0][0])
+  pitch = math.atan2(-transformed_matrix[2][0], (math.sqrt(transformed_matrix[2][1]**2 + transformed_matrix[2][2]**2)))
+  yaw = math.atan2(transformed_matrix[2][1], transformed_matrix[2][2])
   return roll, pitch, yaw
 
 
@@ -52,7 +52,7 @@ def print_helper(pos, rot):
 
 if __name__ == '__main__':
   np.set_printoptions(precision=2, suppress=True)
-  # Matrix for one joint should be set up let [a, d, apha, theta]
+  # Matrix for one joint should be set up let [a, d, alpha, theta]
   problem_2a = kinematic_chain(np.array([[1.0, 0.0, 0.0, math.pi/2],
                                         [1.0, 0.0, 0.0, math.pi/2]]))
   print('\nProblem 2a: \n',problem_2a)                                        
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
   problem_2_case_1 = kinematic_chain(np.array([[0.0, 0.1625,  math.pi/2, 0.0],
                                                 [-0.425, 0.0, 0.0, 0.0],
-                                                [-0.1333, 0.0, 0.0, 0.0],
+                                                [-0.3922, 0.0, 0.0, 0.0],
                                                 [0.0, 0.1333, math.pi/2, 0.0],
                                                 [0.0, 0.0997, -math.pi/2, 0.0],
                                                 [0.0, 0.0996, 0.0, 0.0]]))
@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
   problem_2_case_2 = kinematic_chain(np.array([[0.0, 0.1625,  math.pi/2, 0.0],
                                                 [-0.425, 0.0, 0.0, -math.pi/2],
-                                                [-0.1333, 0.0, 0.0, 0.0],
+                                                [-0.3922, 0.0, 0.0, 0.0],
                                                 [0.0, 0.1333, math.pi/2, 0.0],
                                                 [0.0, 0.0997, -math.pi/2, 0.0],
                                                 [0.0, 0.0996, 0.0, 0.0]]))
