@@ -38,9 +38,10 @@ def get_pos(transformed_matrix):
 def get_rot(transformed_matrix):
   ''' This function takes the homogeneous transformation matrix
       and return the roll, pitch, and yaw '''
-  roll = math.atan2(transformed_matrix[1][0], transformed_matrix[0][0])
+  roll = math.atan2(transformed_matrix[2][1], transformed_matrix[2][2])
   pitch = math.atan2(-transformed_matrix[2][0], (math.sqrt(transformed_matrix[2][1]**2 + transformed_matrix[2][2]**2)))
-  yaw = math.atan2(transformed_matrix[2][1], transformed_matrix[2][2])
+  yaw = math.atan2(transformed_matrix[1][0], transformed_matrix[0][0])
+  
   return roll, pitch, yaw
 
 
@@ -66,7 +67,7 @@ if __name__ == '__main__':
                                                 [0.0, 0.1333, math.pi/2, 0.0],
                                                 [0.0, 0.0997, -math.pi/2, 0.0],
                                                 [0.0, 0.0996, 0.0, 0.0]]))
-  print('\nProblem 2 Case 1: \n',problem_2_case_1)                                                                           
+  print('\nProblem 2b Case 1: \n',problem_2_case_1)                                                                           
   pos = get_pos(problem_2_case_1)
   rot = get_rot(problem_2_case_1)
   print_helper(pos, rot)
@@ -77,7 +78,7 @@ if __name__ == '__main__':
                                                 [0.0, 0.1333, math.pi/2, 0.0],
                                                 [0.0, 0.0997, -math.pi/2, 0.0],
                                                 [0.0, 0.0996, 0.0, 0.0]]))
-  print('\nProblem 2 Case 2: \n',problem_2_case_2)                                        
+  print('\nProblem 2b Case 2: \n',problem_2_case_2)                                        
   pos = get_pos(problem_2_case_2)
   rot = get_rot(problem_2_case_2)
   print_helper(pos, rot)
